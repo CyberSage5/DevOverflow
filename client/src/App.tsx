@@ -11,6 +11,7 @@ import Documentation from "@/pages/Documentation";
 import Changelog from "@/pages/Changelog";
 import Auth from "@/pages/Auth";
 import Onboarding from "@/pages/Onboarding";
+import DashboardHome from "@/pages/dashboard/Home";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -21,6 +22,12 @@ function Router() {
       <Route path="/changelog" component={Changelog} />
       <Route path="/auth" component={Auth} />
       <Route path="/onboarding" component={Onboarding} />
+      <ProtectedRoute path="/dashboard" component={DashboardHome} />
+      <ProtectedRoute path="/dashboard/tags" component={DashboardHome} />
+      <ProtectedRoute path="/dashboard/my-questions" component={DashboardHome} />
+      <ProtectedRoute path="/dashboard/discussions" component={DashboardHome} />
+      <ProtectedRoute path="/dashboard/bounties" component={DashboardHome} />
+      <ProtectedRoute path="/dashboard/profile" component={DashboardHome} />
       <Route component={NotFound} />
     </Switch>
   );
