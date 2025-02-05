@@ -1,7 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 
 export function Navbar() {
+  const { t } = useTranslation();
+
   return (
     <nav className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
@@ -12,8 +16,9 @@ export function Navbar() {
         </Link>
 
         <div className="flex items-center gap-4">
-          <Button variant="ghost">Log In</Button>
-          <Button>Sign Up</Button>
+          <LanguageSwitcher />
+          <Button variant="ghost">{t('nav.login')}</Button>
+          <Button>{t('nav.signup')}</Button>
         </div>
       </div>
     </nav>
