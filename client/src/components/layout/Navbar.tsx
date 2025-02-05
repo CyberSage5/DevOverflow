@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { useTranslation } from "react-i18next";
 import { LanguageSwitcher } from "./LanguageSwitcher";
+import { ThemeSwitcher } from "./ThemeSwitcher";
 import { useAuth } from "@/hooks/use-auth";
 import {
   DropdownMenu,
@@ -27,6 +28,7 @@ export function Navbar() {
         </Link>
 
         <div className="flex items-center gap-4">
+          <ThemeSwitcher />
           <LanguageSwitcher />
 
           {user ? (

@@ -19,16 +19,25 @@ import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import { fadeIn } from "@/lib/animations";
 
-const loginSchema = insertUserSchema.pick({
-  username: true,
-  password: true,
+// Create a separate login schema that only includes username and password
+const loginSchema = z.object({
+  username: z.string().min(1, "Username is required"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
 });
+
+// Create a registration schema that includes all required fields
+const registerSchema = insertUserSchema.extend({
+  password: z.string().min(6, "Password must be at least 6 characters"),
+});
+
+type LoginFormData = z.infer<typeof loginSchema>;
+type RegisterFormData = z.infer<typeof registerSchema>;
 
 export default function Auth() {
   const { t } = useTranslation();
   const { user, loginMutation, registerMutation } = useAuth();
 
-  const loginForm = useForm({
+  const loginForm = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
       username: "",
@@ -36,8 +45,8 @@ export default function Auth() {
     },
   });
 
-  const registerForm = useForm({
-    resolver: zodResolver(insertUserSchema),
+  const registerForm = useForm<RegisterFormData>({
+    resolver: zodResolver(registerSchema),
     defaultValues: {
       username: "",
       email: "",
@@ -49,6 +58,14 @@ export default function Auth() {
   if (user) {
     return <Redirect to="/" />;
   }
+
+  const onRegister = async (data: RegisterFormData) => {
+    const { password, ...rest } = data;
+    registerMutation.mutate({
+      ...rest,
+      hashedPassword: password, // Backend will hash this
+    });
+  };
 
   return (
     <div className="min-h-[calc(100vh-4rem)] grid md:grid-cols-2">
@@ -119,7 +136,7 @@ export default function Auth() {
             <TabsContent value="register">
               <Form {...registerForm}>
                 <form
-                  onSubmit={registerForm.handleSubmit((data) => registerMutation.mutate(data))}
+                  onSubmit={registerForm.handleSubmit(onRegister)}
                   className="space-y-4"
                 >
                   <FormField
