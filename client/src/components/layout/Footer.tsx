@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import { Github } from "lucide-react";
+import { StatusButton } from "./StatusButton";
 
 export function Footer() {
   return (
@@ -12,7 +13,7 @@ export function Footer() {
               The open-source Q&A platform built by developers, for developers.
             </p>
           </div>
-          
+
           <div>
             <h3 className="font-semibold mb-4">Resources</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
@@ -23,11 +24,12 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-semibold mb-4">Community</h3>
+            <h3 className="font-semibold mb-4">Updates</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><Link href="/blog">Blog</Link></li>
-              <li><Link href="/discord">Discord</Link></li>
-              <li><Link href="/twitter">Twitter</Link></li>
+              <li><Link href="/changelog">Changelog</Link></li>
+              <li>
+                <StatusButton />
+              </li>
             </ul>
           </div>
 
@@ -42,7 +44,7 @@ export function Footer() {
             </a>
           </div>
         </div>
-        
+
         <div className="mt-12 pt-8 border-t text-center text-sm text-muted-foreground">
           © {new Date().getFullYear()} DevOverflow. All rights reserved.
         </div>

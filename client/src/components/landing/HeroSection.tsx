@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { fadeIn } from "@/lib/animations";
 import { useTranslation } from "react-i18next";
+import { SiGithub } from "react-icons/si";
+import { Star } from "lucide-react";
 
 export function HeroSection() {
   const { t } = useTranslation();
@@ -29,8 +31,17 @@ export function HeroSection() {
         <Button size="lg" className="bg-gradient-to-r from-primary to-purple-600">
           {t('hero.getStarted')}
         </Button>
-        <Button size="lg" variant="outline">
-          {t('hero.learnMore')}
+        <Button 
+          size="lg" 
+          variant="outline"
+          asChild
+          className="gap-2"
+        >
+          <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+            <SiGithub className="w-5 h-5" />
+            <Star className="w-4 h-4 fill-current" />
+            <span>100</span>
+          </a>
         </Button>
       </div>
     </motion.section>
