@@ -5,17 +5,30 @@ import { fadeIn, staggerChildren } from "@/lib/animations";
 
 const CHANGELOGS = [
   {
+    version: "1.1.0",
+    date: "2024-02-05",
+    type: "feature",
+    changes: [
+      "Added user onboarding flow with profile completion",
+      "Implemented light/dark mode theme switching",
+      "Added multi-language support (EN, ES, FR)",
+      "Created dashboard layout with navigation sidebar",
+      "Added questions feed with search and filtering",
+      "Enhanced authentication system with improved error handling",
+      "Added user reputation system groundwork"
+    ]
+  },
+  {
     version: "1.0.0",
     date: "2024-02-05",
     type: "major",
     changes: [
       "Initial release of Dev Overflow",
-      "Question and answer functionality",
+      "Basic question and answer functionality",
       "User authentication system",
-      "Multilingual support (EN, ES, FR)"
+      "Landing page with trending questions"
     ]
-  },
-  // Add more versions as needed
+  }
 ];
 
 export default function Changelog() {
@@ -27,7 +40,7 @@ export default function Changelog() {
       className="max-w-4xl mx-auto px-4 py-12"
     >
       <h1 className="text-4xl font-bold mb-8">Changelog</h1>
-      
+
       <div className="space-y-6">
         {CHANGELOGS.map((log, index) => (
           <motion.div key={index} variants={fadeIn}>
@@ -40,7 +53,7 @@ export default function Changelog() {
                   </Badge>
                   <span className="text-sm text-muted-foreground">{log.date}</span>
                 </div>
-                
+
                 <ul className="space-y-2">
                   {log.changes.map((change, changeIndex) => (
                     <li key={changeIndex} className="text-muted-foreground">

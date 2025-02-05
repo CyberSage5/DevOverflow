@@ -14,7 +14,13 @@ export const users = pgTable("users", {
   interests: text("interests").array(),
   onboardingCompleted: boolean("onboarding_completed").default(false),
   reputation: integer("reputation").default(0),
-  createdAt: timestamp("created_at").defaultNow()
+  createdAt: timestamp("created_at").defaultNow(),
+  isAdmin: boolean("is_admin").default(false),
+  // for gamification
+  badges: text("badges").array().default([]),
+  questionCount: integer("question_count").default(0),
+  answerCount: integer("answer_count").default(0),
+  acceptedAnswerCount: integer("accepted_answer_count").default(0)
 });
 
 // Create insert schemas
@@ -22,7 +28,12 @@ export const insertUserSchema = createInsertSchema(users).omit({
   id: true,
   reputation: true,
   createdAt: true,
-  onboardingCompleted: true
+  onboardingCompleted: true,
+  isAdmin: true,
+  badges: true,
+  questionCount: true,
+  answerCount: true,
+  acceptedAnswerCount: true
 });
 
 export const onboardingSchema = z.object({
