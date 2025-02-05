@@ -10,6 +10,7 @@ import Home from "@/pages/Home";
 import Documentation from "@/pages/Documentation";
 import Changelog from "@/pages/Changelog";
 import Auth from "@/pages/Auth";
+import Onboarding from "@/pages/Onboarding";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -19,6 +20,7 @@ function Router() {
       <Route path="/docs" component={Documentation} />
       <Route path="/changelog" component={Changelog} />
       <Route path="/auth" component={Auth} />
+      <Route path="/onboarding" component={Onboarding} />
       <Route component={NotFound} />
     </Switch>
   );

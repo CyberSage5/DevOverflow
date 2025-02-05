@@ -8,9 +8,34 @@ export const users = pgTable("users", {
   username: text("username").notNull().unique(),
   email: text("email").notNull().unique(),
   hashedPassword: text("hashed_password").notNull(),
+  firstName: text("first_name"),
+  lastName: text("last_name"),
+  location: text("location"),
+  interests: text("interests").array(),
+  onboardingCompleted: boolean("onboarding_completed").default(false),
   reputation: integer("reputation").default(0),
   createdAt: timestamp("created_at").defaultNow()
 });
+
+// Create insert schemas
+export const insertUserSchema = createInsertSchema(users).omit({
+  id: true,
+  reputation: true,
+  createdAt: true,
+  onboardingCompleted: true
+});
+
+export const onboardingSchema = z.object({
+  firstName: z.string().min(1, "First name is required"),
+  lastName: z.string().min(1, "Last name is required"),
+  location: z.string().min(1, "Location is required"),
+  interests: z.array(z.string()).min(1, "Select at least 1 interest").max(7, "You can select up to 7 interests"),
+});
+
+// Export types
+export type User = typeof users.$inferSelect;
+export type InsertUser = z.infer<typeof insertUserSchema>;
+export type Onboarding = z.infer<typeof onboardingSchema>;
 
 export const questions = pgTable("questions", {
   id: serial("id").primaryKey(),
@@ -59,13 +84,6 @@ export const usersRelations = relations(users, ({ many }) => ({
   answers: many(answers)
 }));
 
-// Create insert schemas
-export const insertUserSchema = createInsertSchema(users).omit({
-  id: true,
-  reputation: true,
-  createdAt: true
-});
-
 export const insertQuestionSchema = createInsertSchema(questions).omit({
   id: true,
   upvotes: true,
@@ -79,10 +97,6 @@ export const insertAnswerSchema = createInsertSchema(answers).omit({
   isAccepted: true,
   createdAt: true
 });
-
-// Export types
-export type User = typeof users.$inferSelect;
-export type InsertUser = z.infer<typeof insertUserSchema>;
 
 export type Question = typeof questions.$inferSelect;
 export type InsertQuestion = z.infer<typeof insertQuestionSchema>;
