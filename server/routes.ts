@@ -1,15 +1,15 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
+import { setupAuth } from "./auth";
 import { storage } from "./storage";
 
 export function registerRoutes(app: Express): Server {
-  // put application routes here
+  // Set up authentication routes
+  setupAuth(app);
+
+  // Additional routes will be added here
   // prefix all routes with /api
 
-  // use storage to perform CRUD operations on the storage interface
-  // e.g. storage.insertUser(user) or storage.getUserByUsername(username)
-
   const httpServer = createServer(app);
-
   return httpServer;
 }
