@@ -1,0 +1,79 @@
+Dev Overflow – App Structure & Flow
+Let’s break it down from the Landing Page to the Full App Structure:
+
+1️⃣ Landing Page (Homepage)
+Goal: Introduce Dev Overflow, encourage sign-ups, and show trending questions.
+
+Sections:
+✅ Hero Section – Short tagline like “The Open-Source Alternative to Stack Overflow” + Call-to-Action (Sign up/Login).
+✅ Search Bar – Users can instantly search for questions.
+✅ Trending Questions – List the most active/popular questions.
+✅ Key Features – Why Dev Overflow? (AI answers, live discussions, bounties, etc.).
+✅ Community Highlights – Top contributors, featured answers, active bounties.
+✅ Footer – Links to Docs, API, GitHub Repo, and Open Source Contributors.
+
+2️⃣ Authentication & Onboarding
+✅ Signup/Login – Users can sign up via Email/Google/GitHub.
+✅ Onboarding Flow – After signing in, users choose interests (React, Python, AI, etc.).
+✅ User Dashboard Redirect – After onboarding, they land on the main app dashboard.
+
+3️⃣ Main App (Dashboard)
+Left Sidebar (Navigation)
+🔹 Home – Latest & trending questions.
+🔹 Tags – Filter by topics (React, Python, DevOps, etc.).
+🔹 Ask a Question – Button to create a new question.
+🔹 My Questions – Questions the user has asked.
+🔹 Discussions – Live chatrooms for real-time help.
+🔹 Bounty Board – Questions with rewards.
+🔹 Profile – User settings, reputation, activity history.
+Main Content Area (Feed)
+1️⃣ Search Bar – Find questions instantly.
+2️⃣ Feed of Questions – Sorted by latest, trending, or unanswered.
+3️⃣ Each Question Card:
+
+Title
+Tags
+Short preview of the question
+Upvotes & answers count
+Time posted & author
+4️⃣ Filters – Newest, Most Answered, Unanswered, Bounty Questions.
+
+4️⃣ Question Page (Single Question View)
+Layout:
+✅ Question Title – Big, clear heading.
+✅ Asked By – User details, reputation, time posted.
+✅ Question Body – Markdown support for code snippets, images.
+✅ Tags – Related topics.
+✅ Answers Section –
+
+Sorted by best, most recent
+Upvote/downvote system
+AI-generated suggested answer (optional)
+✅ Comment Section – Users can discuss below answers.
+✅ Bounty Option – OP can attach a bounty to get faster responses.
+5️⃣ Ask a Question (Create New Question)
+Title (auto-suggest similar questions)
+Description (supports Markdown & code blocks)
+Tags (React, JavaScript, etc.)
+Bounty (optional – offer reward for fast answers)
+6️⃣ Live Discussions (Real-Time Help)
+Join active discussions in different topics (like Discord channels).
+Post code snippets and get live feedback.
+AI suggestions for relevant discussions.
+7️⃣ Profile & Reputation System
+User Profile Page – Avatar, bio, top answers, questions, reputation.
+Reputation System – Based on contributions (upvotes, accepted answers).
+Badges & Achievements – Gamification to encourage engagement.
+Saved Questions – Bookmark questions for later.
+8️⃣ Admin & Moderation Panel
+Community-driven moderation
+Flagging/reporting system for spam or abuse
+Verified users (optional)
+Tech Stack Recap
+Frontend: Next.js (TypeScript), Tailwind CSS (ShadCN)
+Backend: Node.js (Express or Nest.js), PostgreSQL or MongoDB
+Auth: NextAuth.js, Firebase, or custom JWT-based
+Storage: Supabase, AWS S3, or Cloudinary (for images & attachments)
+Real-Time Features: WebSockets (Socket.io) or Firebase Firestore
+AI Features: OpenAI API (or local models) for answer suggestions
+Search: Algolia or Meilisearch for fast search
