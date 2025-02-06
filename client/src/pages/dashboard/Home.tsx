@@ -1,10 +1,11 @@
 
 import { DashboardLayout } from "@/layouts/DashboardLayout";
+import { QuestionCard } from "@/components/questions/QuestionCard";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Filter, Search, ArrowUp, ArrowDown, Eye, MessageSquare } from "lucide-react";
+import { Filter, Search } from "lucide-react";
 
 export default function DashboardHome() {
   const questions = [
@@ -17,20 +18,37 @@ export default function DashboardHome() {
       answers: 5,
       views: 1200,
       author: "nextdev",
-      timestamp: "2h ago",
-      bounty: 100
+      timestamp: "2h ago"
     },
-    // ... more questions
+    {
+      id: 2,
+      title: "Understanding TypeScript Generic Constraints in React Components",
+      content: "I'm struggling with implementing generic constraints in my React components. Specifically when using with custom hooks...",
+      tags: ["typescript", "react", "generics"],
+      votes: 38,
+      answers: 3,
+      views: 950,
+      author: "tsexpert",
+      timestamp: "4h ago"
+    },
+    {
+      id: 3,
+      title: "Best practices for handling large-scale state management in 2024",
+      content: "With all the new options available (Zustand, Jotai, TanStack), what's the current best practice for state management?",
+      tags: ["react", "state-management", "javascript"],
+      votes: 56,
+      answers: 8,
+      views: 2300,
+      author: "statepro",
+      timestamp: "6h ago"
+    }
   ];
 
   return (
     <DashboardLayout>
       <div className="space-y-6">
         <div className="flex justify-between items-center">
-          <div>
-            <h1 className="text-3xl font-bold">Top Questions</h1>
-            <p className="text-muted-foreground mt-1">Recent questions from the community</p>
-          </div>
+          <h1 className="text-3xl font-bold">Top Questions</h1>
           <Button>Ask Question</Button>
         </div>
 
@@ -57,55 +75,28 @@ export default function DashboardHome() {
 
         <div className="space-y-4">
           {questions.map((question) => (
-            <div key={question.id} className="border rounded-lg p-6 hover:border-primary/50 transition-colors">
-              <div className="flex gap-6">
-                <div className="flex flex-col items-center gap-2 min-w-[80px]">
-                  <Button variant="ghost" size="sm" className="text-muted-foreground">
-                    <ArrowUp className="h-5 w-5" />
-                  </Button>
-                  <span className="text-lg font-semibold">{question.votes}</span>
-                  <Button variant="ghost" size="sm" className="text-muted-foreground">
-                    <ArrowDown className="h-5 w-5" />
-                  </Button>
+            <div key={question.id} className="border rounded-lg p-6 space-y-4">
+              <div className="flex justify-between items-start">
+                <div className="space-y-2">
+                  <h2 className="text-xl font-semibold hover:text-blue-600 cursor-pointer">
+                    {question.title}
+                  </h2>
+                  <p className="text-muted-foreground">{question.content}</p>
                 </div>
-                
-                <div className="flex-1">
-                  <div className="flex justify-between items-start">
-                    <div className="space-y-2">
-                      <h2 className="text-xl font-semibold hover:text-primary cursor-pointer">
-                        {question.title}
-                      </h2>
-                      <p className="text-muted-foreground">{question.content}</p>
-                      <div className="flex gap-2">
-                        {question.tags.map((tag) => (
-                          <Badge key={tag} variant="secondary" className="hover:bg-primary/10 cursor-pointer">
-                            {tag}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center justify-between mt-4">
-                    <div className="flex items-center gap-6 text-sm text-muted-foreground">
-                      <div className="flex items-center gap-1">
-                        <MessageSquare className="h-4 w-4" />
-                        {question.answers} answers
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Eye className="h-4 w-4" />
-                        {question.views} views
-                      </div>
-                      {question.bounty && (
-                        <Badge variant="secondary" className="bg-yellow-100 text-yellow-800">
-                          +{question.bounty} bounty
-                        </Badge>
-                      )}
-                    </div>
-                    <div className="text-sm text-muted-foreground">
-                      asked {question.timestamp} by {question.author}
-                    </div>
-                  </div>
+                <div className="text-right space-y-1">
+                  <div className="text-lg font-medium">{question.votes} votes</div>
+                  <div className="text-sm text-muted-foreground">{question.answers} answers</div>
+                  <div className="text-sm text-muted-foreground">{question.views} views</div>
+                </div>
+              </div>
+              <div className="flex items-center justify-between">
+                <div className="flex gap-2">
+                  {question.tags.map((tag) => (
+                    <Badge key={tag} variant="secondary">{tag}</Badge>
+                  ))}
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  asked {question.timestamp} by {question.author}
                 </div>
               </div>
             </div>
