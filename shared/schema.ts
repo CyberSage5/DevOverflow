@@ -57,7 +57,53 @@ export const questions = pgTable("questions", {
   answers: integer("answers").default(0),
   authorId: integer("author_id").notNull().references(() => users.id),
   createdAt: timestamp("created_at").defaultNow(),
-  tags: text("tags").array().notNull()
+  tags: text("tags").array().notNull(),
+  bountyAmount: integer("bounty_amount").default(0),
+  bountyExpiresAt: timestamp("bounty_expires_at"),
+  viewCount: integer("view_count").default(0),
+  hasAcceptedAnswer: boolean("has_accepted_answer").default(false),
+  images: text("images").array(),
+  lastActivityAt: timestamp("last_activity_at").defaultNow()
+});
+
+export const votes = pgTable("votes", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull().references(() => users.id),
+  questionId: integer("question_id").references(() => questions.id),
+  answerId: integer("answer_id").references(() => answers.id),
+  value: integer("value").notNull(),
+  createdAt: timestamp("created_at").defaultNow()
+});
+
+export const comments = pgTable("comments", {
+  id: serial("id").primaryKey(),
+  content: text("content").notNull(),
+  authorId: integer("author_id").notNull().references(() => users.id),
+  questionId: integer("question_id").references(() => questions.id),
+  answerId: integer("answer_id").references(() => answers.id),
+  createdAt: timestamp("created_at").defaultNow()
+});
+
+export const tags = pgTable("tags", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull().unique(),
+  description: text("description"),
+  createdAt: timestamp("created_at").defaultNow(),
+  usageCount: integer("usage_count").default(0)
+});
+
+export const tagFollows = pgTable("tag_follows", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull().references(() => users.id),
+  tagId: integer("tag_id").notNull().references(() => tags.id),
+  createdAt: timestamp("created_at").defaultNow()
+});
+
+export const savedQuestions = pgTable("saved_questions", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull().references(() => users.id),
+  questionId: integer("question_id").notNull().references(() => questions.id),
+  createdAt: timestamp("created_at").defaultNow()
 });
 
 export const answers = pgTable("answers", {
