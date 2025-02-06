@@ -10,7 +10,36 @@ const CONTRIBUTORS = [
     role: "Top Contributor",
     contributions: "1.2k answers"
   },
-  // Add 2-3 more contributors
+  {
+    name: "Sarah Chen",
+    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956",
+    role: "Community Leader",
+    contributions: "890 answers"
+  },
+  {
+    name: "Michael Patel",
+    image: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5",
+    role: "Technical Expert",
+    contributions: "756 answers"
+  },
+  {
+    name: "Emma Wilson",
+    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80",
+    role: "DevOps Specialist",
+    contributions: "650 answers"
+  },
+  {
+    name: "David Kim",
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
+    role: "Frontend Expert",
+    contributions: "580 answers"
+  },
+  {
+    name: "Lisa Martinez",
+    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
+    role: "AI/ML Specialist",
+    contributions: "520 answers"
+  }
 ];
 
 export function CommunityHighlights() {
@@ -23,7 +52,7 @@ export function CommunityHighlights() {
         className="max-w-6xl mx-auto"
       >
         <h2 className="text-3xl font-bold text-center mb-12">Community Leaders</h2>
-        
+
         <div className="grid md:grid-cols-3 gap-6">
           {CONTRIBUTORS.map((contributor, index) => (
             <motion.div key={index} variants={fadeIn}>

@@ -26,7 +26,9 @@ const loginSchema = z.object({
 });
 
 // Create a registration schema that includes all required fields
-const registerSchema = insertUserSchema.extend({
+const registerSchema = z.object({
+  username: z.string().min(1, "Username is required"),
+  email: z.string().email("Invalid email address"),
   password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
@@ -59,11 +61,15 @@ export default function Auth() {
     return <Redirect to="/" />;
   }
 
-  const onRegister = async (data: RegisterFormData) => {
-    const { password, ...rest } = data;
+  const onLogin = (data: LoginFormData) => {
+    loginMutation.mutate(data);
+  };
+
+  const onRegister = (data: RegisterFormData) => {
     registerMutation.mutate({
-      ...rest,
-      hashedPassword: password, // Backend will hash this
+      username: data.username,
+      email: data.email,
+      hashedPassword: data.password, // This will be hashed on the server
     });
   };
 
@@ -91,7 +97,7 @@ export default function Auth() {
             <TabsContent value="login">
               <Form {...loginForm}>
                 <form
-                  onSubmit={loginForm.handleSubmit((data) => loginMutation.mutate(data))}
+                  onSubmit={loginForm.handleSubmit(onLogin)}
                   className="space-y-4"
                 >
                   <FormField
