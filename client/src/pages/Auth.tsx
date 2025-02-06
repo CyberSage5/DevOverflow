@@ -69,7 +69,7 @@ export default function Auth() {
     registerMutation.mutate({
       username: data.username,
       email: data.email,
-      hashedPassword: data.password, // This will be hashed on the server
+      password: data.password,
     });
   };
 
