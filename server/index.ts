@@ -58,8 +58,25 @@ app.use((req, res, next) => {
 
   // ALWAYS serve the app on port 5000
   // this serves both the API and the client
-  const PORT = 5000;
-  server.listen(PORT, "0.0.0.0", () => {
-    log(`serving on port ${PORT}`);
-  });
+  const PORT = process.env.PORT || 5000;
+  const FALLBACK_PORTS = [5000, 3000, 8080];
+  
+  const tryListen = (portIndex = 0) => {
+    if (portIndex >= FALLBACK_PORTS.length) {
+      throw new Error("No available ports found");
+    }
+    
+    const currentPort = FALLBACK_PORTS[portIndex];
+    server.listen(currentPort, "0.0.0.0", () => {
+      log(`serving on port ${currentPort}`);
+    }).on('error', (err: any) => {
+      if (err.code === 'EADDRINUSE') {
+        tryListen(portIndex + 1);
+      } else {
+        throw err;
+      }
+    });
+  };
+
+  tryListen();
 })();
